@@ -8,4 +8,31 @@ export class TaskManager {
   ];
 
   private filtroActual: string = 'Todas';
+// funcion para agregar una nueva tarea al arreglo de tareas y actualizar la vista
+  public agregarTarea(): void {
+    const formulario = document.querySelector<HTMLFormElement>('#form-tareas');
+    const inputTitulo = document.querySelector<HTMLInputElement>('#input-titulo');
+    const selectPrioridad = document.querySelector<HTMLSelectElement>('#select-prioridad');
+
+    if (!formulario || !inputTitulo || !selectPrioridad) {
+      throw new Error('No se encontraron los elementos necesarios para agregar una tarea.');
+    }
+
+    const titulo = inputTitulo.value.trim();
+    const prioridad = selectPrioridad.value;
+    if (!titulo || (prioridad !== 'Alta' && prioridad !== 'Media' && prioridad !== 'Baja')) {
+      return;
+    }
+
+    const nuevaTarea: Tarea = {
+      id: Date.now(),
+      titulo,
+      prioridad,
+      completada: false,
+    };
+
+    this.tareas = [...this.tareas, nuevaTarea];
+    //this.pintarTareas();
+    formulario.reset();
+  }
 }
