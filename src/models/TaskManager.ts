@@ -32,7 +32,47 @@ export class TaskManager {
     };
 
     this.tareas = [...this.tareas, nuevaTarea];
-    //this.pintarTareas();
+    this.pintarTareas();
     formulario.reset();
+  }
+//Metodo para pintar las tareas en la interfaz de usuario, filtrando según el estado 
+  public pintarTareas(): void {
+    const listaContenedor = document.querySelector<HTMLUListElement>('#lista-tareas');
+    if (!listaContenedor) {
+      throw new Error('No se encontró el contenedor de tareas.');
+    }
+
+    listaContenedor.innerHTML = '';
+    const tareasFiltradas = this.tareas.filter((tarea) => {
+      if (this.filtroActual === 'Pendientes') {
+        return !tarea.completada;
+      }
+      if (this.filtroActual === 'Completadas') {
+        return tarea.completada;
+      }
+      return true;
+    });
+
+    tareasFiltradas.forEach((tarea) => {
+      const elementoTarea = document.createElement('li');
+      elementoTarea.classList.add('item-tarea', tarea.prioridad);
+      if (tarea.completada) {
+        elementoTarea.classList.add('completada');
+      }
+
+      const textoTarea = document.createElement('span');
+      textoTarea.textContent = `${tarea.titulo} (${tarea.prioridad})`;
+
+      const botonEstado = document.createElement('button');
+      botonEstado.type = 'button';
+      botonEstado.textContent = tarea.completada ? 'Marcar Pendiente' : 'Completar';
+      botonEstado.addEventListener('click', () => {
+        tarea.completada = !tarea.completada;
+        this.pintarTareas();
+      });
+
+      elementoTarea.append(textoTarea, botonEstado);
+      listaContenedor.appendChild(elementoTarea);
+    });
   }
 }
