@@ -1,0 +1,1 @@
+{"version":3,"file":"TaskManager.d.ts","sourceRoot":"","sources":["../../src/models/TaskManager.ts"],"names":[],"mappings":"AAEA,qBAAa,WAAW;IACtB,OAAO,CAAC,MAAM,CAIZ;IAEF,OAAO,CAAC,YAAY,CAAmD;IAEhE,YAAY,IAAI,IAAI,CAyB1B;IAEM,YAAY,IAAI,IAAI,CAqC1B;IAEM,OAAO,CAAC,MAAM,EAAE,OAAO,GAAG,YAAY,GAAG,aAAa,GAAG,IAAI,CAGnE;IAGM,aAAa,CAAC,EAAE,EAAE,MAAM,GAAG,IAAI,CAUrC;CACF"}

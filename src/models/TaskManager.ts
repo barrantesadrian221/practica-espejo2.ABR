@@ -7,7 +7,7 @@ export class TaskManager {
     { id: 3, titulo: 'Migrar el proyecto a Angular', prioridad: 'Baja', completada: false },
   ];
 
-  private filtroActual: string = 'Todas';
+  private filtroActual: 'Todas' | 'Pendientes' | 'Completadas' = 'Todas';
 // funcion para agregar una nueva tarea al arreglo de tareas y actualizar la vista
   public agregarTarea(): void {
     const formulario = document.querySelector<HTMLFormElement>('#form-tareas');
@@ -75,6 +75,12 @@ export class TaskManager {
     });
   }
 
+  public filtrar(filtro: 'Todas' | 'Pendientes' | 'Completadas'): void {
+    this.filtroActual = filtro;
+    this.pintarTareas();
+  }
+
+// Metodo para cambiar el estado
   public cambiarEstado(id: number): void {
     const tareaExiste = this.tareas.some((tarea) => tarea.id === id);
     if (!tareaExiste) {
