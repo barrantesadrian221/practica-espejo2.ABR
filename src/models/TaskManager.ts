@@ -67,12 +67,23 @@ export class TaskManager {
       botonEstado.type = 'button';
       botonEstado.textContent = tarea.completada ? 'Marcar Pendiente' : 'Completar';
       botonEstado.addEventListener('click', () => {
-        tarea.completada = !tarea.completada;
-        this.pintarTareas();
+        this.cambiarEstado(tarea.id);
       });
 
       elementoTarea.append(textoTarea, botonEstado);
       listaContenedor.appendChild(elementoTarea);
     });
+  }
+
+  public cambiarEstado(id: number): void {
+    const tareaExiste = this.tareas.some((tarea) => tarea.id === id);
+    if (!tareaExiste) {
+      throw new Error(`No se encontró la tarea con id ${id}.`);
+    }
+
+    this.tareas = this.tareas.map((tarea) =>
+      tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea,
+    );
+    this.pintarTareas();
   }
 }
